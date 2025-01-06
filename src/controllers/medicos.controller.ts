@@ -7,6 +7,7 @@ import { Message } from "../enums/messages";
 export const insertarMedico = async (req: Request, res: Response) => {
     try {
         console.log("insertarMedico");
+        
         const medico: Partial<Medico> = req.body;
         const newMedico: Medico = await medicoService.insertarMedico(medico);
         res.json(BaseResponse.success(newMedico, Message.INSERTADO_OK));
