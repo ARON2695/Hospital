@@ -5,7 +5,6 @@ import { EstadoAuditoria } from "../enums/estado-Auditoria";
 const repository = AppDataSource.getRepository(Cita);
 
 export const insertarCita = async (data: Partial<Cita>): Promise<Cita> => {
-    console.log("insertarCita::server", data);
     const newCita: Cita = await repository.save(data);
     return await repository.findOne({ where: { idCita: newCita.idCita } });
 };
@@ -19,14 +18,12 @@ export const obtenerCita = async (idCita: number): Promise<Cita> => {
     if (isNaN(idCita)) {
         throw new Error("El ID de la cita no es válido");
     }
-
     // Verificar que la cita existe en la base de datos
     const cita = await repository.findOne({ where: { idCita, estadoAuditoria: EstadoAuditoria.ACTIVO } });
     
     if (!cita) {
         throw new Error("Cita no encontrada");
     }
-
     return cita;
 };
 

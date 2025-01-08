@@ -1,23 +1,25 @@
 import { Request, Response } from "express";
+import { BaseResponse } from "../shared/base.response";
 import { Habitacion } from "../entities/habitacion";
 import * as habitacionesService from "../services/habitacion.service";
+import { Message } from "../enums/messages";
 
 export const insertarHabitacion = async (req: Request, res: Response) => {
     try {
         const habitacion: Partial<Habitacion> = req.body;
         const nuevaHabitacion = await habitacionesService.insertarHabitacion(habitacion);
-        res.status(201).json(nuevaHabitacion);
+        res.status(201).json(BaseResponse.success(nuevaHabitacion, Message.INSERTADO_OK));
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json(BaseResponse.success(error.message));
     }
 };
 
 export const listarHabitaciones = async (req: Request, res: Response) => {
     try {
         const habitaciones = await habitacionesService.listarHabitaciones();
-        res.json(habitaciones);
+        res.status(200).json(BaseResponse.success(habitaciones));
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json(BaseResponse.error(error.message));
     }
 };
 
@@ -28,10 +30,10 @@ export const obtenerHabitacion = async (req: Request, res: Response) => {
         if (habitacion) {
             res.json(habitacion);
         } else {
-            res.status(404).json({ error: "Habitación no encontrada" });
+            res.status(404).json(BaseResponse.error(Message.NOT_FOUND));
         }
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json(BaseResponse.error(error.message));
     }
 };
 
@@ -39,9 +41,9 @@ export const actualizarHabitacion = async (req: Request, res: Response) => {
     try {
         const idHabitacion = Number(req.params.id);
         const habitacionActualizada = await habitacionesService.actualizarHabitacion(idHabitacion, req.body);
-        res.json(habitacionActualizada);
+        res.status(200).json(BaseResponse.success(habitacionActualizada, Message.ACTUALIZADO_OK));
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json(BaseResponse.error(error.message));
     }
 };
 
@@ -49,8 +51,8 @@ export const darBajaHabitacion = async (req: Request, res: Response) => {
     try {
         const idHabitacion = Number(req.params.id);
         await habitacionesService.darBajaHabitacion(idHabitacion);
-        res.status(204).send();
+        res.status(200).json(BaseResponse.success(null, Message.ELIMINADO_OK));
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json(BaseResponse.error(error.message));
     }
 };
