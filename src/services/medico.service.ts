@@ -1,5 +1,5 @@
 import { AppDataSource } from "../config/db.config";
-import {Medico} from "../entities/medicos";
+import {Medico} from "../entities/medico";
 import {EstadoAuditoria} from "../enums/estado-Auditoria";
 
 const repository = AppDataSource.getRepository(Medico);

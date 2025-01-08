@@ -1,5 +1,5 @@
 import { Router } from "express";
-import  {actualizarHabitacion, darBajaHabitacion, insertarHabitacion, listarHabitaciones, obtenerHabitacion } from '../controllers/habitaciones.controller';
+import  {actualizarHabitacion, darBajaHabitacion, insertarHabitacion, listarHabitaciones, obtenerHabitacion } from '../controllers/habitacion.controller';
 
 const router = Router();
 

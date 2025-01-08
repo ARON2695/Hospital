@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { Ingreso } from "../entities/ingresos";
-import * as ingresosService from "../services/ingresos.service";
+import { Ingreso } from "../entities/ingreso";
+import * as ingresosService from "../services/ingreso.service";
 
 export const insertarIngreso = async (req: Request, res: Response) => {
     try {

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { BaseResponse } from "../shared/base.response";
-import * as medicoService from "../services/medicos.service";
-import { Medico } from "../entities/medicos";
+import * as medicoService from "../services/medico.service";
+import { Medico } from "../entities/medico";
 import { Message } from "../enums/messages";
 
 export const insertarMedico = async (req: Request, res: Response) => {

@@ -1,5 +1,5 @@
 import { AppDataSource } from "../config/db.config";
-import { Ingreso } from "../entities/ingresos";
+import { Ingreso } from "../entities/ingreso";
 
 const repository = AppDataSource.getRepository(Ingreso);
 

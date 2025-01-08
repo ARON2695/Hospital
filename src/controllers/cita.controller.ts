@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { BaseResponse } from "../shared/base.response";
-import * as citasService from "../services/citas.service";
-import { Cita } from "../entities/citas";
+import * as citasService from "../services/cita.service";
+import { Cita } from "../entities/cita";
 import { Message } from "../enums/messages";
 
 export const insertarCita = async (req: Request, res: Response): Promise<void> => {

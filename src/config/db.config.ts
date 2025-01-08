@@ -1,10 +1,10 @@
 import { DataSource } from "typeorm";
 import { DB_DATABASE, DB_HOST, DB_PASSWORD, DB_PORT, DB_TYPE, DB_USERNAME} from "../shared/constants"
 import { Pacientes } from "../entities/paciente";
-import { Cita } from "../entities/citas";
-import { Medico } from "../entities/medicos";
-import { Habitacion } from "../entities/habitaciones";
-import { Ingreso } from "../entities/ingresos";
+import { Cita } from "../entities/cita";
+import { Medico } from "../entities/medico";
+import { Habitacion } from "../entities/habitacion";
+import { Ingreso } from "../entities/ingreso";
 import { Laboratorio } from "../entities/laboratorio";
 import { ResultadoLaboratorio } from "../entities/resultado-laboratorio";
 

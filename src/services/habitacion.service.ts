@@ -1,5 +1,5 @@
 import { AppDataSource } from "../config/db.config";
-import { Habitacion } from "../entities/habitaciones";
+import { Habitacion } from "../entities/habitacion";
 
 const repository = AppDataSource.getRepository(Habitacion);
 

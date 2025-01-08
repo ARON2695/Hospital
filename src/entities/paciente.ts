@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn,OneToMany, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { Cita } from "./citas";
+import { Cita } from "./cita";
 import {  ResultadoLaboratorio} from "./resultado-laboratorio";
 
 @Entity('pacientes')

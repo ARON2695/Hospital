@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {actualizarIngreso, darBajaIngreso, insertarIngreso, listarIngresos, obtenerIngreso  } from "../controllers/ingresos.controller";
+import {actualizarIngreso, darBajaIngreso, insertarIngreso, listarIngresos, obtenerIngreso  } from "../controllers/ingreso.controller";
 
 const router = Router();
 

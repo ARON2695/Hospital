@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ResultadoLaboratorio } from "../entities/resultado-laboratorio";
-import * as resultadosService from "../services/resultados-laboratorio.service";
+import * as resultadosService from "../services/resultado-laboratorio.service";
 
 export const insertarResultado = async (req: Request, res: Response) => {
     try {

@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { actualizarMedico, listarMedicos, obtenerMedico, insertarMedico, darBajaMedico } from '../controllers/medicos.controller';
+import { actualizarMedico, listarMedicos, obtenerMedico, insertarMedico, darBajaMedico } from '../controllers/medico.controller';
 
 const router: Router = Router();
 

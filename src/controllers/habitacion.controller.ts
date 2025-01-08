@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { Habitacion } from "../entities/habitaciones";
-import * as habitacionesService from "../services/habitaciones.service";
+import { Habitacion } from "../entities/habitacion";
+import * as habitacionesService from "../services/habitacion.service";
 
 export const insertarHabitacion = async (req: Request, res: Response) => {
     try {
