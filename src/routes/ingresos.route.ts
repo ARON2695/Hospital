@@ -1,12 +1,12 @@
 import { Router } from "express";
-import * as ingresosController from "../controllers/ingresos.controller";
+import {actualizarIngreso, darBajaIngreso, insertarIngreso, listarIngresos, obtenerIngreso  } from "../controllers/ingresos.controller";
 
 const router = Router();
 
-router.post("/", ingresosController.insertarIngreso);
-router.get("/", ingresosController.listarIngresos);
-router.get("/:id", ingresosController.obtenerIngreso);
-router.put("/:id", ingresosController.actualizarIngreso);
-router.delete("/:id", ingresosController.darBajaIngreso);
+router.post("/",insertarIngreso);
+router.get("/",listarIngresos);
+router.get("/:id",obtenerIngreso);
+router.put("/:id",actualizarIngreso);
+router.delete("/:id",darBajaIngreso);
 
 export default router;

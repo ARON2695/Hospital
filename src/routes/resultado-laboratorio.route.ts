@@ -1,13 +1,12 @@
 import { Router } from "express";
-import * as resultadosController from "../controllers/resultado-laboratorio.controller";
+import {actualizarResultado, darBajaResultado, insertarResultado, listarResultados, obtenerResultado} from "../controllers/resultado-laboratorio.controller";
 
 const router = Router();
 
-// Define las rutas para Resultados_Laboratorio
-router.post("/", resultadosController.insertarResultado);
-router.get("/", resultadosController.listarResultados);
-router.get("/:id", resultadosController.obtenerResultado);
-router.put("/:id", resultadosController.actualizarResultado);
-router.delete("/:id", resultadosController.darBajaResultado);
+router.post("/",insertarResultado);
+router.get("/",listarResultados);
+router.get("/:id",obtenerResultado);
+router.put("/:id",actualizarResultado);
+router.delete("/:id",darBajaResultado);
 
 export default router;

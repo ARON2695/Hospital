@@ -16,5 +16,11 @@ export const AppDataSource = new DataSource({
     username: DB_USERNAME,
     password: DB_PASSWORD,
     database: DB_DATABASE,
-    entities: [Pacientes,Cita,Medico,Habitacion,Ingreso,Laboratorio,ResultadoLaboratorio],
+    entities: [Pacientes,
+               Cita,
+               Medico,
+               Habitacion,
+               Ingreso,
+               Laboratorio,
+               ResultadoLaboratorio],
 });
