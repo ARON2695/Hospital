@@ -18,7 +18,7 @@ export const obtenerMedico = async (idMedico: number): Promise<Medico> => {
     return await repository.findOne({where: { idMedico, estadoAuditoria: EstadoAuditoria.ACTIVO}});
 }
 
-export const actualizarPaciente = async (idMedico: number, data: Partial<Medico>): Promise<Medico> => {
+export const actualizarMedico = async (idMedico: number, data: Partial<Medico>): Promise<Medico> => {
     await repository.update(idMedico,data);
     return obtenerMedico(idMedico);
 }

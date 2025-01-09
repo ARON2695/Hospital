@@ -30,14 +30,13 @@ export const listarMedicos = async (req: Request, res: Response) => {
 
 export const obtenerMedico = async (req: Request, res: Response) => {
     try {
-        console.log("obtenerMedico");
-        const idMedico = Number(req.params.id);
-        const medico: Medico = await medicoService.obtenerMedico(idMedico);
-        if (medico) {
-            res.json(BaseResponse.success(medico));
-        } else {
-            res.status(404).json(BaseResponse.error(Message.NOT_FOUND));
+        const {idMedico} = req.params;
+        const medico: Medico = await medicoService.obtenerMedico(Number(idMedico));        
+        if (!medico) {
+            res.status(404).json(BaseResponse.error(Message.NOT_FOUND,404));
+            return;
         }
+        res.json(BaseResponse.success(medico));
     } catch (error) {
         console.error(error);
         res.status(500).json(BaseResponse.error(error.message));
@@ -46,25 +45,30 @@ export const obtenerMedico = async (req: Request, res: Response) => {
 
 export const actualizarMedico = async (req: Request, res: Response) => {
     try {
-        console.log("actualizarMedico");
-        const idMedico = Number(req.params.id);
-        const data: Partial<Medico> = req.body;
-        const updatedMedico: Medico = await medicoService.actualizarPaciente(idMedico, data);
-        res.json(BaseResponse.success(updatedMedico, Message.ACTUALIZADO_OK));
-    } catch (error) {
-        console.error(error);
-        res.status(500).json(BaseResponse.error(error.message));
+            const {idMedico} = req.params;
+            const medico: Partial<Medico> = req.body;
+            if(!(await medicoService.obtenerMedico(Number(idMedico)))){
+                res.status(404).json(BaseResponse.error(Message.NOT_FOUND,404));
+                return;
+            }
+            const updateMedico: Medico = await medicoService.actualizarMedico(Number(idMedico),medico);
+            res.json(BaseResponse.success(updateMedico, Message.ACTUALIZADO_OK));
+        } catch (error) {
+            console.error(error);
+            res.status(500).json(BaseResponse.error(error.message));
+        }
     }
-};
-
 export const darBajaMedico = async (req: Request, res: Response) => {
     try {
-        console.log("darBajaMedico");
-        const idMedico = Number(req.params.id);
-        await medicoService.darBajaMedico(idMedico);
-        res.json(BaseResponse.success(null, Message.ELIMINADO_OK));
-    } catch (error) {
-        console.error(error);
-        res.status(500).json(BaseResponse.error(error.message));
-    }
-};
+            const {idMedico} = req.params;
+            if(!(await medicoService.obtenerMedico(Number(idMedico)))){
+                res.status(404).json(BaseResponse.error(Message.NOT_FOUND,404));
+                return;
+            }
+            await medicoService.darBajaMedico(Number(idMedico));
+            res.json(BaseResponse.success(null, Message.ELIMINADO_OK));
+        } catch (error) {
+            console.error(error);
+            res.status(500).json(BaseResponse.error(error.message));
+        } 
+}

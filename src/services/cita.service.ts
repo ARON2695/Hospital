@@ -1,11 +1,30 @@
 import { AppDataSource } from "../config/db.config";
 import { Cita } from "../entities/cita";
+import { Pacientes } from "../entities/paciente"; 
+import { Medico } from "../entities/medico"; 
 import { EstadoAuditoria } from "../enums/estado-Auditoria";
 
 const repository = AppDataSource.getRepository(Cita);
 
-export const insertarCita = async (data: Partial<Cita>): Promise<Cita> => {
-    const newCita: Cita = await repository.save(data);
+export const insertarCita = async (data: {
+    idPaciente: number;
+    idMedico: number;
+    fechaHora: Date;
+    estadoAuditoria: string;}): Promise<Cita> => {
+
+    console.log('insertarCita::server',data)
+    const paciente = await AppDataSource.getRepository(Pacientes).findOne({ where: { idPaciente: data.idPaciente } });
+    const medico = await AppDataSource.getRepository(Medico).findOne({ where: { idMedico: data.idMedico } });
+    if (!data.idPaciente || !data.idMedico) {
+        throw new Error("El paciente o el médico no existen.");
+    }
+    const newCita = new Cita();
+    newCita.paciente = paciente;
+    newCita.medico = medico;
+    newCita.fechaHora = data.fechaHora;
+    newCita.estadoAuditoria = data.estadoAuditoria;
+
+    await repository.save(newCita);
     return await repository.findOne({ where: { idCita: newCita.idCita } });
 };
 
@@ -14,17 +33,7 @@ export const listarCitas = async (): Promise<Cita[]> => {
 };
 
 export const obtenerCita = async (idCita: number): Promise<Cita> => {
-    // Verificamos que idCita sea un número válido
-    if (isNaN(idCita)) {
-        throw new Error("El ID de la cita no es válido");
-    }
-    // Verificar que la cita existe en la base de datos
-    const cita = await repository.findOne({ where: { idCita, estadoAuditoria: EstadoAuditoria.ACTIVO } });
-    
-    if (!cita) {
-        throw new Error("Cita no encontrada");
-    }
-    return cita;
+    return await repository.findOne({where: { idCita, estadoAuditoria: EstadoAuditoria.ACTIVO}});
 };
 
 export const actualizarCita = async (idCita: number, data: Partial<Cita>): Promise<Cita> => {
