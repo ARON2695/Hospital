@@ -1,12 +1,29 @@
 import { AppDataSource } from "../config/db.config";
 import { Ingreso } from "../entities/ingreso";
+import { Pacientes } from "../entities/paciente";
+import { Habitacion } from "../entities/habitacion";
 
 const repository = AppDataSource.getRepository(Ingreso);
+const pacienteRepository = AppDataSource.getRepository(Pacientes);
+const habitacionRepository = AppDataSource.getRepository(Habitacion);
 
 export const insertarIngreso = async (data: Partial<Ingreso>): Promise<Ingreso> => {
-    const nuevoIngreso: Ingreso = await repository.save(data);
-    return await repository.findOne({ where: { idIngreso: nuevoIngreso.idIngreso } });
+    const paciente = await pacienteRepository.findOneBy({ idPaciente: data.paciente?.idPaciente });
+    if (!paciente) {
+        throw new Error("El paciente no existe");
+    }
+    const habitacion = await habitacionRepository.findOneBy({ idHabitacion: data.habitacion?.idHabitacion });
+    if (!habitacion) {
+        throw new Error("La habitación no existe");
+    }
+    const newIngreso = repository.create({
+        ...data,
+        paciente, 
+        habitacion,
+    });
+    return await repository.save(newIngreso);
 };
+
 
 export const listarIngresos = async (): Promise<Ingreso[]> => {
     return await repository.find({ relations: ["paciente", "habitacion"], where: { estadoAuditoria: '1' } });

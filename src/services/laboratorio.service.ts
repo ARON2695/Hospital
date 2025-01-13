@@ -15,7 +15,7 @@ export const listarLaboratorios = async (): Promise<Laboratorio[]> => {
 export const obtenerLaboratorio = async (idLaboratorio: number): Promise<Laboratorio> => {
     return await repository.findOne({
         where: { idLaboratorio, estadoAuditoria: '1' },
-        relations: ["resultadosLaboratorio"], // Incluye la relación con resultados.
+        relations: ["resultadosLaboratorio"], 
     });
 };
 

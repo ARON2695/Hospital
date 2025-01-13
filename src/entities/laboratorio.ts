@@ -9,8 +9,8 @@ export class Laboratorio {
     @Column({ name: 'nombre' })
     nombre: string;
 
-    @Column({ name: 'direccion' })
-    direccion: string;
+    @Column({ name: 'ubicacion' })
+    ubicacion: string;
 
     @Column({ name: 'telefono' })
     telefono: string;

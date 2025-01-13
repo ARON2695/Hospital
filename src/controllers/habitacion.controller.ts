@@ -6,6 +6,7 @@ import { Message } from "../enums/messages";
 
 export const insertarHabitacion = async (req: Request, res: Response) => {
     try {
+        console.log("insertarHabitacion");
         const habitacion: Partial<Habitacion> = req.body;
         const nuevaHabitacion = await habitacionesService.insertarHabitacion(habitacion);
         res.status(201).json(BaseResponse.success(nuevaHabitacion, Message.INSERTADO_OK));
@@ -16,6 +17,7 @@ export const insertarHabitacion = async (req: Request, res: Response) => {
 
 export const listarHabitaciones = async (req: Request, res: Response) => {
     try {
+        console.log("listarHabitaciones");
         const habitaciones = await habitacionesService.listarHabitaciones();
         res.status(200).json(BaseResponse.success(habitaciones));
     } catch (error) {

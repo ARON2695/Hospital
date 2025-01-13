@@ -6,8 +6,7 @@ import { Message } from "../enums/messages";
 
 export const insertarMedico = async (req: Request, res: Response) => {
     try {
-        console.log("insertarMedico");
-        
+        console.log("insertarMedico");      
         const medico: Partial<Medico> = req.body;
         const newMedico: Medico = await medicoService.insertarMedico(medico);
         res.json(BaseResponse.success(newMedico, Message.INSERTADO_OK));
@@ -33,7 +32,7 @@ export const obtenerMedico = async (req: Request, res: Response) => {
         const {idMedico} = req.params;
         const medico: Medico = await medicoService.obtenerMedico(Number(idMedico));        
         if (!medico) {
-            res.status(404).json(BaseResponse.error(Message.NOT_FOUND,404));
+            res.status(404).json(BaseResponse.error(Message.NOT_FOUND));
             return;
         }
         res.json(BaseResponse.success(medico));
@@ -60,15 +59,15 @@ export const actualizarMedico = async (req: Request, res: Response) => {
     }
 export const darBajaMedico = async (req: Request, res: Response) => {
     try {
-            const {idMedico} = req.params;
-            if(!(await medicoService.obtenerMedico(Number(idMedico)))){
-                res.status(404).json(BaseResponse.error(Message.NOT_FOUND,404));
-                return;
-            }
-            await medicoService.darBajaMedico(Number(idMedico));
-            res.json(BaseResponse.success(null, Message.ELIMINADO_OK));
+        const {idMedico} = req.params;
+        if(!(await medicoService.obtenerMedico(Number(idMedico)))){
+            res.status(404).json(BaseResponse.error(Message.NOT_FOUND,404));
+            return;
+        }
+        await medicoService.darBajaMedico(Number(idMedico));
+        res.json(BaseResponse.success(null, Message.ELIMINADO_OK));
         } catch (error) {
-            console.error(error);
-            res.status(500).json(BaseResponse.error(error.message));
+        console.error(error);
+        res.status(500).json(BaseResponse.error(error.message));
         } 
 }

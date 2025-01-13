@@ -31,7 +31,7 @@ export const obtenerPaciente = async (req: Request, res: Response)=>{
         const {idPaciente} = req.params;
         const paciente: Pacientes = await pacienteService.obtenerPaciente(Number(idPaciente));
         if(!paciente) {
-            res.status(404).json(BaseResponse.error(Message.NOT_FOUND,404))
+            res.status(404).json(BaseResponse.error(Message.NOT_FOUND))
             return;
         }
         res.json(BaseResponse.success(paciente));

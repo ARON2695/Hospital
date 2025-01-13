@@ -1,25 +1,27 @@
 import { Request, Response } from "express";
 import { BaseResponse } from "../shared/base.response";
-import { ResultadoLaboratorio } from "../entities/resultado-laboratorio";
 import * as resultadosService from "../services/resultado-laboratorio.service";
 import { Message } from "../enums/messages";
+import { ResultadoLaboratorio } from "../entities/resultado-laboratorio";
 
 export const insertarResultado = async (req: Request, res: Response) => {
     try {
-        const resultado: Partial<ResultadoLaboratorio> = req.body;
-        const nuevoResultado = await resultadosService.insertarResultado(resultado);
-        res.status(201).json(BaseResponse.success(nuevoResultado, Message.INSERTADO_OK));
-    } catch (error) {
-        res.status(500).json(BaseResponse.success(error.message));
-    }
-};
+           const resultado: Partial<ResultadoLaboratorio> = req.body;
+           const nuevoResultado: ResultadoLaboratorio = await resultadosService.insertarResultado(resultado);
+           res.json(BaseResponse.success(nuevoResultado, Message.INSERTADO_OK));
+       } catch (error) {
+           console.error(error);
+           res.status(500).json(BaseResponse.success(error.message));
+       }
+   };
 
 export const listarResultados = async (req: Request, res: Response) => {
     try {
-        const resultados = await resultadosService.listarResultados();
-        res.status(200).json(BaseResponse.success(resultados));
+        const resultado: ResultadoLaboratorio[] = await resultadosService.listarResultados();
+        res.status(200).json(BaseResponse.success(resultado));
     } catch (error) {
-        res.status(500).json(BaseResponse.success(error.message));
+        console.error(error);
+        res.status(500).json(BaseResponse.error(error.message));
     }
 };
 
