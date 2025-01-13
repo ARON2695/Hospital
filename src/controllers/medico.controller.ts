@@ -3,12 +3,14 @@ import { BaseResponse } from "../shared/base.response";
 import * as medicoService from "../services/medico.service";
 import { Medico } from "../entities/medico";
 import { Message } from "../enums/messages";
+import { insertarMedicoSchema, actualizarMedicoSchema } from '../validators/medico.schema';
 
 export const insertarMedico = async (req: Request, res: Response) => {
     try {
         console.log("insertarMedico");      
         const medico: Partial<Medico> = req.body;
         const newMedico: Medico = await medicoService.insertarMedico(medico);
+        const { error } = insertarMedicoSchema.validate(req.body);
         res.json(BaseResponse.success(newMedico, Message.INSERTADO_OK));
     } catch (error) {
         console.error(error);

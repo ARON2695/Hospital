@@ -1,39 +1,40 @@
-import { Column, Entity,OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, ManyToOne, PrimaryGeneratedColumn, JoinColumn } from "typeorm";
 import { Cita } from "./cita";
-
+import { Usuario } from "./usuario";
 
 @Entity('medicos')
 export class Medico {
-    @PrimaryGeneratedColumn({ name: 'id_medico' })
-    idMedico: number;
+  @PrimaryGeneratedColumn({ name: 'id_medico' })
+  idMedico: number;
 
-    @Column({ name: 'nombres' })
-    nombres: string;
+  @Column({ name: 'nombre' })
+  nombre: string;
 
-    @Column({ name: 'apellidos' })
-    apellidos: string;
+  @Column({ name: 'apellido_paterno' })
+  apellidoPaterno: string;
 
-    @Column({ name: 'especialidad' })
-    especialidad: string;
+  @Column({ name: 'apellido_materno' })
+  apellidoMaterno: string;
 
-    @Column({ name: 'numero_colegiatura' })
-    numeroColegiatura: string;
+  @Column({ name: 'especialidad' })
+  especialidad: string;
 
-    @Column({ name: 'telefono'})
-    telefono: string;
+  @Column({ name: 'numero_colegiatura' })
+  numeroColegiatura: string;
 
-    @Column({ name: 'correo_electronico' })
-    correoElectronico: string;
+  @Column({ name: 'telefono' })
+  telefono: string;
 
-    @Column({ name: 'horario' })
-    horario: string;
+  @Column({ name: 'correo_electronico' })
+  correoElectronico: string;
 
-    @Column({ name: 'disponible' })
-    disponible: boolean;
+  @Column({ name: 'estado_auditoria' })
+  estadoAuditoria: string;
 
-    @Column({ name: 'estado_auditoria' })
-    estadoAuditoria: string;
+  @ManyToOne(() => Usuario, (usuario) => usuario.medicos, { nullable: true })
+  @JoinColumn({ name: 'id_usuario' })
+  usuario: Usuario;
 
-    @OneToMany(() => Cita, (cita) => cita.medico)
-    citas: Cita[];
+  @OneToMany(() => Cita, (cita) => cita.medico)
+  citas: Cita[];
 }

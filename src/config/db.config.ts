@@ -7,6 +7,8 @@ import { Habitacion } from "../entities/habitacion";
 import { Ingreso } from "../entities/ingreso";
 import { Laboratorio } from "../entities/laboratorio";
 import { ResultadoLaboratorio } from "../entities/resultado-laboratorio";
+import { Usuario } from "../entities/usuario";
+import { HistorialClinico } from "../entities/historial-clinico";
 
 
 export const AppDataSource = new DataSource({
@@ -22,5 +24,7 @@ export const AppDataSource = new DataSource({
                Habitacion,
                Ingreso,
                Laboratorio,
-               ResultadoLaboratorio],
+               ResultadoLaboratorio,
+               Usuario,
+               HistorialClinico],
 });

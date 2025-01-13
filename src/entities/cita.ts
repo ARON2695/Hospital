@@ -15,9 +15,18 @@ export class Cita {
     @JoinColumn({ name: 'id_medico' })
     medico: Medico;
 
-    @Column({ name: 'fecha_hora' })
-    fechaHora: Date;
+    @Column({ name: 'dia_agendado' })
+    diaAgendado: Date;
 
-    @Column({ name: 'estado_auditoria' })
+    @Column({ name: 'fue_realizada', default: false })
+    fueRealizada: boolean;
+
+    @Column({ name: 'hora_inicio' })
+    horaInicio: string;
+
+    @Column({ name: 'hora_termino' })
+    horaTermino: string;
+
+    @Column({ name: 'estado_auditoria', default: '1' })
     estadoAuditoria: string;
 }

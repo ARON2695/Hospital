@@ -1,52 +1,64 @@
-import { Column, CreateDateColumn,OneToMany, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, OneToMany, ManyToOne, Entity, PrimaryGeneratedColumn, JoinColumn } from "typeorm";
+import { Usuario } from "./usuario"; 
 import { Cita } from "./cita";
-import {  ResultadoLaboratorio} from "./resultado-laboratorio";
+import { ResultadoLaboratorio } from "./resultado-laboratorio";
+import { HistorialClinico } from "./historial-clinico"; 
 
 @Entity('pacientes')
 export class Pacientes {
-    @PrimaryGeneratedColumn({name: 'id_paciente'})
-    idPaciente: number;
+  @PrimaryGeneratedColumn({ name: 'id_paciente' })
+  idPaciente: number;
 
-    @Column({ name: 'nombres'})
-    nombres: string;
+  @Column({ name: 'nombre' })
+  nombre: string;
 
-    @Column({ name: 'apellidos'})
-    apellidos: string;
+  @Column({ name: 'apellido_paterno' })
+  apellidoPaterno: string;
 
-    @Column({ name: 'tipo_documento'}) 
-    tipoDocumento: string;
+  @Column({ name: 'apellido_materno' })
+  apellidoMaterno: string;
 
-    @Column({ name: 'numero_documento'}) 
-    numeroDocumento: string;
+  @Column({ name: 'tipo_documento' })
+  tipoDocumento: string;
 
-    @Column({ name: 'fecha_nacimiento'}) 
-    fechaNacimiento: Date;
+  @Column({ name: 'numero_documento' })
+  numeroDocumento: string;
 
-    @Column({ name: 'sexo'})
-    sexo: string;
+  @Column({ name: 'fecha_nacimiento' })
+  fechaNacimiento: Date;
 
-    @Column({ name: 'direccion'})
-    direccion: string;
+  @Column({ name: 'sexo' })
+  sexo: string;
 
-    @Column({ name: 'telefono'}) 
-    telefono: string;
+  @Column({ name: 'direccion' })
+  direccion: string;
 
-    @Column({ name: 'correo_electronico'}) 
-    correoElectronico: string;
+  @Column({ name: 'telefono' })
+  telefono: string;
 
-    @Column({ name: 'tipo_de_seguro'}) 
-    tipoDeSeguro: string;
+  @Column({ name: 'correo_electronico' })
+  correoElectronico: string;
 
-    @Column({ name: 'historial_medico'}) 
-    historialMedico: string;
+  @Column({ name: 'tipo_de_seguro'})
+  tipoDeSeguro: string;
 
-    @Column({ name: 'estado_auditoria'}) 
-    estadoAuditoria: string;
+  @Column({ name: 'tipo_pago' })
+  tipoPago: string;
 
-    @OneToMany(() => Cita, (cita) => cita.paciente)
-    citas: Cita[];
+  @ManyToOne(() => Usuario, (usuario) => usuario.pacientes, { nullable: true })
+  @JoinColumn({ name: 'id_usuario' })
+  usuario: Usuario;
 
-    @OneToMany(() => ResultadoLaboratorio, (resultadoLaboratorio) => resultadoLaboratorio.paciente)
-    resultadosLaboratorio: ResultadoLaboratorio[];
+  @OneToMany(() => HistorialClinico, (historial) => historial.paciente)
+  historialClinico: HistorialClinico[];
+
+  @OneToMany(() => Cita, (cita) => cita.paciente)
+  citas: Cita[];
+
+  @OneToMany(() => ResultadoLaboratorio, (resultado) => resultado.paciente)
+  resultadosLaboratorio: ResultadoLaboratorio[];
+
+  @Column({ name: 'estado_auditoria' })
+  estadoAuditoria: string;
 
 }
